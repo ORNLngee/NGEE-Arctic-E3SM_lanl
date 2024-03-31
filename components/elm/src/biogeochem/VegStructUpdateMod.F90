@@ -164,11 +164,11 @@ contains
                ! taper and stocking density can be set as input variables now to
                ! change from default values set in pftvarcon.F90
                if (spinup_state >= 1) then
-                 htop(p) = ((3._r8 * deadstemc(p) * spinup_mortality_factor * taper * taper)/ &
-                      (SHR_CONST_PI * stocking * dwood(ivt(p))))**(1._r8/3._r8)
+                 htop(p) = ((3._r8 * deadstemc(p) * spinup_mortality_factor * taper(p) * taper(p))/ &
+                      (SHR_CONST_PI * stocking(p) * dwood(ivt(p))))**(1._r8/3._r8)
                else
-                 htop(p) = ((3._r8 * deadstemc(p) * taper * taper)/ &
-                      (SHR_CONST_PI * stocking * dwood(ivt(p))))**(1._r8/3._r8)
+                 htop(p) = ((3._r8 * deadstemc(p) * taper(p) * taper(p))/ &
+                      (SHR_CONST_PI * stocking(p) * dwood(ivt(p))))**(1._r8/3._r8)
                end if
 
                ! Peter Thornton, 5/3/2004
@@ -240,7 +240,7 @@ contains
          ! Liston and Hiemstra, 2011; Belke-Brea et al. 2020
          if (ivt(p) > noveg .and. ivt(p) <= nbrdlf_dcd_brl_shrub ) then
             ol = min( max(snow_depth(c)-hbot(p), 0._r8), htop(p)-hbot(p))
-            fb = 1._r8 - (ol / max(1.e-06_r8, bendresist(p)*(htop(p)-hbot(p))) ** vegshape
+            fb = 1._r8 - (ol / max(1.e-06_r8, bendresist(p) * (htop(p)-hbot(p)))) ** vegshape(p)
          else
             fb = 1._r8 - max(min(snow_depth(c),0.2_r8),0._r8)/0.2_r8   ! 0.2m is assumed
             !depth of snow required for complete burial of grasses
