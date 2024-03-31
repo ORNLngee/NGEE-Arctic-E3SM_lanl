@@ -315,7 +315,7 @@ contains
     allocate(this%bendresist(0:numpft))                          ; this%bendresist(:)            =spval
     allocate(this%vegshape(0:numpft))                            ; this%vegshape(:)              =spval
     allocate(this%stocking(0:numpft))                            ; this%stocking(:)              =spval
-    allocate(this%taper(0:numpft))                               ; this%taper(:)                 =spvale
+    allocate(this%taper(0:numpft))                               ; this%taper(:)                 =spval
 
     do m = 0,numpft
 
