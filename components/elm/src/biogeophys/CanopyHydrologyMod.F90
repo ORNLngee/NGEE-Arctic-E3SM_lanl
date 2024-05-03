@@ -208,11 +208,11 @@ contains
           elai                 => canopystate_vars%elai_patch              , & ! Input:  [real(r8) (:)   ]  one-sided leaf area index with burying by snow
           esai                 => canopystate_vars%esai_patch              , & ! Input:  [real(r8) (:)   ]  one-sided stem area index with burying by snow
 
-          t_grnd               => col_es%t_grnd              , & ! Input:  [real(r8) (:)   ]  ground temperature (Kelvin)
-          t_soisno             => col_es%t_soisno            , & ! Output: [real(r8) (:,:) ]  soil temperature (Kelvin)
+          t_grnd               => col_es%t_grnd               , & ! Input:  [real(r8) (:)   ]  ground temperature (Kelvin)
+          t_soisno             => col_es%t_soisno             , & ! Output: [real(r8) (:,:) ]  soil temperature (Kelvin)
 
           do_capsnow           => col_ws%do_capsnow           , & ! Output: [logical  (:)   ]  true => do snow capping
-          h2ocan               => veg_ws%h2ocan             , & ! Output: [real(r8) (:)   ]  total canopy water (mm H2O)
+          h2ocan               => veg_ws%h2ocan               , & ! Output: [real(r8) (:)   ]  total canopy water (mm H2O)
           h2osfc               => col_ws%h2osfc               , & ! Output: [real(r8) (:)   ]  surface water (mm)
           h2osno               => col_ws%h2osno               , & ! Output: [real(r8) (:)   ]  snow water (mm H2O)
           snow_depth           => col_ws%snow_depth           , & ! Output: [real(r8) (:)   ]  snow height (m)
@@ -225,29 +225,29 @@ contains
           h2osoi_liq           => col_ws%h2osoi_liq           , & ! Output: [real(r8) (:,:) ]  liquid water (kg/m2)
           swe_old              => col_ws%swe_old              , & ! Output: [real(r8) (:,:) ]  snow water before update
 
-          irrig_rate           => veg_wf%irrig_rate          , & ! Input:  [real(r8) (:)   ]  current irrigation rate (applied if n_irrig_steps_left > 0) [mm/s]
-          n_irrig_steps_left   => veg_wf%n_irrig_steps_left  , & ! Output: [integer  (:)   ]  number of time steps for which we still need to irrigate today
-          qflx_floodc          => col_wf%qflx_floodc           , & ! Output: [real(r8) (:)   ]  column flux of flood water from RTM
-          qflx_snow_melt       => col_wf%qflx_snow_melt        , & ! Output: [real(r8) (:)   ]  snow melt from previous time step
-          qflx_snow_h2osfc     => col_wf%qflx_snow_h2osfc      , & ! Output: [real(r8) (:)   ]  snow falling on surface water (mm/s)
-          qflx_snwcp_liq       => veg_wf%qflx_snwcp_liq      , & ! Output: [real(r8) (:)   ]  excess rainfall due to snow capping (mm H2O /s) [+]
-          qflx_snwcp_ice       => veg_wf%qflx_snwcp_ice      , & ! Output: [real(r8) (:)   ]  excess snowfall due to snow capping (mm H2O /s) [+]
-          qflx_snow_grnd_col   => col_wf%qflx_snow_grnd        , & ! Output: [real(r8) (:)   ]  snow on ground after interception (mm H2O/s) [+]
-          qflx_snow_grnd_patch => veg_wf%qflx_snow_grnd      , & ! Output: [real(r8) (:)   ]  snow on ground after interception (mm H2O/s) [+]
-          qflx_prec_intr       => veg_wf%qflx_prec_intr      , & ! Output: [real(r8) (:)   ]  interception of precipitation [mm/s]
-          qflx_prec_grnd       => veg_wf%qflx_prec_grnd      , & ! Output: [real(r8) (:)   ]  water onto ground including canopy runoff [kg/(m2 s)]
-          qflx_rain_grnd       => veg_wf%qflx_rain_grnd      , & ! Output: [real(r8) (:)   ]  rain on ground after interception (mm H2O/s) [+]
-          qflx_dirct_rain      => veg_wf%qflx_dirct_rain     , & ! Output: [real(r8) (:)   ]  direct rain throughfall on ground (mm H2O/s)
-          qflx_leafdrip        => veg_wf%qflx_leafdrip       , & ! Output: [real(r8) (:)   ]  leap rain drip on ground (mm H2O/s)
-          qflx_irrig           => veg_wf%qflx_irrig_patch          , & ! Output: [real(r8) (:)   ]  total water demand or irrigation amount if one-way (mm/s)
-          qflx_real_irrig      => veg_wf%qflx_real_irrig_patch     , & ! Output: [real(r8) (:)   ]  actual irrigation amount (mm/s)
-          qflx_surf_irrig_col  => col_wf%qflx_surf_irrig       , & ! Output: [real(r8) (:)   ]  col real surface water irrigation flux (mm H2O /s)
-          qflx_grnd_irrig_col  => col_wf%qflx_grnd_irrig       , & ! Output: [real(r8) (:)   ]  col real groundwater irrigation flux (mm H2O /s)
-          qflx_over_supply_col => col_wf%qflx_over_supply      , & ! Output: [real(r8) (:)   ]  over supply irrigation flux (mm H2O /s)
-          qflx_supply          => veg_wf%qflx_supply_patch         , & ! Output: [real(r8) (:)   ]  irrigation supply (mm/s)
-          qflx_surf_irrig      => veg_wf%qflx_surf_irrig_patch     , & ! Output: [real(r8) (:)   ]  actual surface water irrigation (mm/s)
-          qflx_grnd_irrig      => veg_wf%qflx_grnd_irrig_patch     , & ! Output: [real(r8) (:)   ]  actual groundwater irrigation (mm/s)
-          qflx_over_supply     => veg_wf%qflx_over_supply_patch      & ! Output: [real(r8) (:)   ]  the portion of supply that exceed total demand (mm/s)
+          irrig_rate           => veg_wf%irrig_rate           , & ! Input:  [real(r8) (:)   ]  current irrigation rate (applied if n_irrig_steps_left > 0) [mm/s]
+          n_irrig_steps_left   => veg_wf%n_irrig_steps_left   , & ! Output: [integer  (:)   ]  number of time steps for which we still need to irrigate today
+          qflx_floodc          => col_wf%qflx_floodc          , & ! Output: [real(r8) (:)   ]  column flux of flood water from RTM
+          qflx_snow_melt       => col_wf%qflx_snow_melt       , & ! Output: [real(r8) (:)   ]  snow melt from previous time step
+          qflx_snow_h2osfc     => col_wf%qflx_snow_h2osfc     , & ! Output: [real(r8) (:)   ]  snow falling on surface water (mm/s)
+          qflx_snwcp_liq       => veg_wf%qflx_snwcp_liq       , & ! Output: [real(r8) (:)   ]  excess rainfall due to snow capping (mm H2O /s) [+]
+          qflx_snwcp_ice       => veg_wf%qflx_snwcp_ice       , & ! Output: [real(r8) (:)   ]  excess snowfall due to snow capping (mm H2O /s) [+]
+          qflx_snow_grnd_col   => col_wf%qflx_snow_grnd       , & ! Output: [real(r8) (:)   ]  snow on ground after interception (mm H2O/s) [+]
+          qflx_snow_grnd_patch => veg_wf%qflx_snow_grnd       , & ! Output: [real(r8) (:)   ]  snow on ground after interception (mm H2O/s) [+]
+          qflx_prec_intr       => veg_wf%qflx_prec_intr       , & ! Output: [real(r8) (:)   ]  interception of precipitation [mm/s]
+          qflx_prec_grnd       => veg_wf%qflx_prec_grnd       , & ! Output: [real(r8) (:)   ]  water onto ground including canopy runoff [kg/(m2 s)]
+          qflx_rain_grnd       => veg_wf%qflx_rain_grnd       , & ! Output: [real(r8) (:)   ]  rain on ground after interception (mm H2O/s) [+]
+          qflx_dirct_rain      => veg_wf%qflx_dirct_rain      , & ! Output: [real(r8) (:)   ]  direct rain throughfall on ground (mm H2O/s)
+          qflx_leafdrip        => veg_wf%qflx_leafdrip        , & ! Output: [real(r8) (:)   ]  leap rain drip on ground (mm H2O/s)
+          qflx_irrig           => veg_wf%qflx_irrig_patch     , & ! Output: [real(r8) (:)   ]  total water demand or irrigation amount if one-way (mm/s)
+          qflx_real_irrig      => veg_wf%qflx_real_irrig_patch, & ! Output: [real(r8) (:)   ]  actual irrigation amount (mm/s)
+          qflx_surf_irrig_col  => col_wf%qflx_surf_irrig      , & ! Output: [real(r8) (:)   ]  col real surface water irrigation flux (mm H2O /s)
+          qflx_grnd_irrig_col  => col_wf%qflx_grnd_irrig      , & ! Output: [real(r8) (:)   ]  col real groundwater irrigation flux (mm H2O /s)
+          qflx_over_supply_col => col_wf%qflx_over_supply     , & ! Output: [real(r8) (:)   ]  over supply irrigation flux (mm H2O /s)
+          qflx_supply          => veg_wf%qflx_supply_patch    , & ! Output: [real(r8) (:)   ]  irrigation supply (mm/s)
+          qflx_surf_irrig      => veg_wf%qflx_surf_irrig_patch, & ! Output: [real(r8) (:)   ]  actual surface water irrigation (mm/s)
+          qflx_grnd_irrig      => veg_wf%qflx_grnd_irrig_patch, & ! Output: [real(r8) (:)   ]  actual groundwater irrigation (mm/s)
+          qflx_over_supply     => veg_wf%qflx_over_supply_patch & ! Output: [real(r8) (:)   ]  the portion of supply that exceed total demand (mm/s)
           )
 
        ! Compute time step
@@ -804,7 +804,7 @@ contains
           micro_sigma  => col_pp%micro_sigma       , & ! Input:  [real(r8) (:)   ] microtopography pdf sigma (m)
 
           h2osno       => col_ws%h2osno            , & ! Input:  [real(r8) (:)   ] snow water (mm H2O)
-          excess_ice   => col_ws%excess_ice        , & ! Input:  [real(r8) (:,:)   ] excess ground ice [kg/m2]
+          excess_ice   => col_ws%excess_ice        , & ! Input:  [real(r8) (:)   ] excess ground ice (0 to 1)
 
           h2osoi_liq   => col_ws%h2osoi_liq        , & ! Output: [real(r8) (:,:) ] liquid water (col,lyr) [kg/m2]
           h2osfc       => col_ws%h2osfc            , & ! Output: [real(r8) (:)   ] surface water (mm)
@@ -827,7 +827,6 @@ contains
              !  Use newton-raphson method to iteratively determine frac_h20sfc
              !  based on amount of surface water storage (h2osfc) and
              !  microtopography variability (micro_sigma)
-
              if (h2osfc(c) > min_h2osfc) then
                 ! a cutoff is needed for numerical reasons...(nonconvergence after 5 iterations)
                 d=0.0

@@ -13,6 +13,7 @@ module ActiveLayerMod
   use GridcellType    , only : grc_pp
   use ColumnType      , only : col_pp
   use ColumnDataType  , only : col_es
+  use LandunitType    , only : lun_pp
   !
   implicit none
   save
@@ -57,7 +58,7 @@ contains
     !
     ! !LOCAL VARIABLES:
     integer  :: c, j, fc, g                     ! counters
-    integer  :: alt_ind                         ! index of base of activel layer
+    integer  :: alt_ind                         ! index of base of active layer
     integer  :: year                            ! year (0, ...) for nstep+1
     integer  :: mon                             ! month (1, ..., 12) for nstep+1
     integer  :: day                             ! day of month (1, ..., 31) for nstep+1
@@ -78,7 +79,11 @@ contains
          alt_indx             =>    canopystate_vars%alt_indx_col        ,      & ! Output:  [integer  (:)   ]  current depth of thaw
          altmax_indx          =>    canopystate_vars%altmax_indx_col     ,      & ! Output:  [integer  (:)   ]  maximum annual depth of thaw
          altmax_lastyear_indx =>    canopystate_vars%altmax_lastyear_indx_col , & ! Output:  [integer  (:)   ]  prior year maximum annual depth of thaw
-         altmax_ever_indx     =>    canopystate_vars%altmax_ever_indx_col       & ! Output:  [integer  (:)   ]  maximum thaw depth since initialization
+         altmax_ever_indx     =>    canopystate_vars%altmax_ever_indx_col,      & ! Output:  [integer  (:)   ]  maximum thaw depth since initialization
+         excess_ice           =>    col_pp%excess_ice                    ,      & ! Input:   [real(r8) (:,:) ]  depth variable excess ice content in soil column (-)
+         rmax                 =>    col_pp%iwp_microrel                  ,      & ! Output:  [real(r8) (:)   ]  ice wedge polygon microtopographic relief (m)
+         vexc                 =>    col_pp%iwp_exclvol                   ,      & ! Output:  [real(r8) (:)   ]  ice wedge polygon excluded volume (m)
+         ddep                 =>    col_pp%iwp_ddep                               ! Output:  [real(r8) (:)   ]  ice wedge polygon depression depth (m)
          )
 
       ! on a set annual timestep, update annual maxima
@@ -162,6 +167,26 @@ contains
             endif
          endif
 
+         ! update ice wedge polygon microtopographic parameters if in polygonal ground
+         ! TODO: need to retrieve landunit this column is on.
+         if (lun_pp%ispolygon) then
+            if (lun_pp%polygontype(c) .eq. ilowcenpoly) then
+               rmax(c) = 0.4_r8
+               vexc(c) = 0.2_r8
+               ddep(c) = 0.15_r8 ! TODO - update based on subsidence calcs.
+            elseif (lun_pp%polygontype(c) .eq. iflatcenpoly) then
+               rmax(c) = 0.1_r8  ! TODO - update based on subsidence calcs.
+               vexc(c) = 0.05_r8 ! TODO - update based on subsidence calcs.
+               ddep(c) = 0.01_r8 ! TODO - update based on subsidence calcs.
+            elseif (lun_pp%polygontype(c) .eq. ihighcenpoly) then
+               rmax(c) = 0.4_r8
+               vexc(c) = 0.2_r8
+               ddep(c) = 0.05_m
+            else
+               !call endrun !<- TODO: needed? Potential way to prevent unintended updating of microtopography
+               ! if polygonal ground is misspecified on surface file.
+            endif
+         endif
       end do
 
     end associate
