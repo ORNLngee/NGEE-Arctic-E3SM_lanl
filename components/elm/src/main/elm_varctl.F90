@@ -394,7 +394,11 @@ module elm_varctl
   logical, public :: fan_nh3_to_atm      = .false.
   logical, public :: fan_to_bgc_crop     = .false.
   logical, public :: fan_to_bgc_veg      = .false.
- 
+
+  !----------------------------------------------------------
+  ! NGEE Arctic parameterizations
+  !----------------------------------------------------------
+  logical, public :: use_arctic_init     = .false.
 
   !----------------------------------------------------------
   ! VSFM switches
@@ -549,8 +553,8 @@ module elm_varctl
    !----------------------------------------------------------
    logical, public :: use_lnd_rof_two_way = .false.
    integer, public :: lnd_rof_coupling_nstep = 0
-   
-   
+
+
    !----------------------------------------------------------
    ! SNICAR-AD
    !----------------------------------------------------------
@@ -562,7 +566,7 @@ module elm_varctl
    ! MPI syncing
    !----------------------------------------------------------
    integer, public :: mpi_sync_nstep_freq = 0
-   
+
    !----------------------------------------------------------
    ! Modified infiltration scheme in surface water storage
    !----------------------------------------------------------
